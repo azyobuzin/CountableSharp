@@ -6,3 +6,8 @@ LINQ to IReadOnlyCollection&lt;T&gt;
 
 # 使えるの？ #
 俺は使わない。
+
+# NuGet #
+何故公開したし
+
+[PM> Install-Package CountableSharp](https://www.nuget.org/packages/CountableSharp/)

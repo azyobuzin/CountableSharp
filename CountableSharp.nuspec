@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>CountableSharp</id>
+        <version>1.0.0</version>
+        <title>CountableSharp</title>
+        <authors>azyobuzin</authors>
+        <licenseUrl>https://github.com/azyobuzin/CountableSharp/blob/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/azyobuzin/CountableSharp</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>LINQ to IReadOnlyCollection&lt;T&gt;</description>
+        <copyright>(c) 2014 azyobuzin</copyright>
+    </metadata>
+    <files>
+        <file src="CountableSharp\bin\Release\CountableSharp.dll" target="lib\net45\CountableSharp.dll" />
+        <file src="CountableSharp\bin\Release\CountableSharp.XML" target="lib\net45\CountableSharp.XML" />
+    </files>
+</package>
