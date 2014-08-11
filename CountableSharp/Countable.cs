@@ -128,5 +128,22 @@ namespace CountableSharp
         {
             return Create(Enumerable.Zip(first, second, resultSelector), Math.Min(first.Count, second.Count));
         }
+
+        public static TSource[] ToArray<TSource>(this IReadOnlyCollection<TSource> source)
+        {
+            var buffer = new TSource[source.Count];
+            var i = 0;
+            foreach (var item in source)
+                buffer[i++] = item;
+            return buffer;
+        }
+
+        public static List<TSource> ToList<TSource>(this IReadOnlyCollection<TSource> source)
+        {
+            var list = new List<TSource>(source.Count);
+            foreach (var item in source)
+                list.Add(item);
+            return list;
+        }
     }
 }
