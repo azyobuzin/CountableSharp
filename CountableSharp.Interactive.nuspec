@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>CountableSharp.Interactive</id>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <title>CountableSharp.Interactive</title>
         <authors>azyobuzin</authors>
         <licenseUrl>https://github.com/azyobuzin/CountableSharp/blob/master/LICENSE.txt</licenseUrl>
@@ -12,6 +12,7 @@
         <copyright>(c) 2014 azyobuzin</copyright>
         <dependencies>
             <dependency id="Ix-Main" version="1.2.2" />
+            <dependency id="CountableSharp" version="1.0.1" />
         </dependencies>
     </metadata>
     <files>
