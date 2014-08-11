@@ -1,24 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace CountableSharp
 {
     internal class AnonymousReadOnlyCollection<T> : IReadOnlyCollection<T>
     {
-        public AnonymousReadOnlyCollection(IEnumerable<T> enumerable, int count)
+        public AnonymousReadOnlyCollection(IEnumerable<T> enumerable, Func<int> count)
         {
             this.enumerable = enumerable;
             this.count = count;
         }
 
-        private IEnumerable<T> enumerable;
-        private int count;
+        private readonly IEnumerable<T> enumerable;
+        private readonly Func<int> count;
 
         public int Count
         {
             get
             {
-                return this.count;
+                return this.count();
             }
         }
 

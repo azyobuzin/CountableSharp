@@ -7,20 +7,20 @@ namespace CountableSharp
 {
     internal class AnonymousOrderedReadOnlyCollection<T> : IOrderedReadOnlyCollection<T>
     {
-        public AnonymousOrderedReadOnlyCollection(IOrderedEnumerable<T> enumerable, int count)
+        public AnonymousOrderedReadOnlyCollection(IOrderedEnumerable<T> enumerable, Func<int> count)
         {
             this.enumerable = enumerable;
             this.count = count;
         }
 
-        private IOrderedEnumerable<T> enumerable;
-        private int count;
+        private readonly IOrderedEnumerable<T> enumerable;
+        private readonly Func<int> count;
 
         public int Count
         {
             get
             {
-                return count;
+                return this.count();
             }
         }
 
@@ -36,7 +36,7 @@ namespace CountableSharp
 
         public IOrderedReadOnlyCollection<T> CreateOrderedReadOnlyCollection<TKey>(Func<T, TKey> keySelector, IComparer<TKey> comparer, bool descending)
         {
-            return new AnonymousOrderedReadOnlyCollection<T>(this.enumerable.CreateOrderedEnumerable(keySelector, comparer, descending), this.Count);
+            return new AnonymousOrderedReadOnlyCollection<T>(this.enumerable.CreateOrderedEnumerable(keySelector, comparer, descending), this.count);
         }
 
         public IOrderedEnumerable<T> CreateOrderedEnumerable<TKey>(Func<T, TKey> keySelector, IComparer<TKey> comparer, bool descending)
