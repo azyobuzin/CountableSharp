@@ -1,0 +1,12 @@
+﻿{
+  "version": "2.0.0-*",
+
+  "dependencies": {
+    "System.Linq": "4.1.0",
+    "System.Runtime.Extensions": "4.1.0"
+  },
+
+  "frameworks": {
+    "netstandard1.0": { }
+  }
+}

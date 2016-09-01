@@ -1,0 +1,12 @@
+﻿{
+  "version": "2.0.0-*",
+
+  "dependencies": {
+    "System.Interactive": "3.0.0",
+    "CountableSharp": { "target" : "project" }
+  },
+
+  "frameworks": {
+    "netstandard1.0": { }
+  }
+}
