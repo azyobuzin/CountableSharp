@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CountableSharp.Impl;
 
 namespace CountableSharp
 {
@@ -22,17 +23,17 @@ namespace CountableSharp
 
         public static IReadOnlyCollection<TSource> AsReadOnlyCollection<TSource>(this ICollection<TSource> source)
         {
-            return (source as IReadOnlyCollection<TSource>) ?? new CollectionWrapper<TSource>(source);
+            return source as IReadOnlyCollection<TSource> ?? new CollectionWrapper<TSource>(source);
         }
 
-        public static IReadOnlyCollection<int> Range(int start, int count)
+        public static IReadOnlyList<int> Range(int start, int count)
         {
-            return Create(Enumerable.Range(start, count), () => count);
+            return new Range(start, count);
         }
 
-        public static IReadOnlyCollection<TResult> Repeat<TResult>(TResult element, int count)
+        public static IReadOnlyList<TResult> Repeat<TResult>(TResult element, int count)
         {
-            return Create(Enumerable.Repeat(element, count), () => count);
+            return new Repeat<TResult>(element, count);
         }
 
         public static IReadOnlyCollection<TSource> Concat<TSource>(this IReadOnlyCollection<TSource> first, IReadOnlyCollection<TSource> second)
@@ -132,6 +133,9 @@ namespace CountableSharp
 
         public static TSource[] ToArray<TSource>(this IReadOnlyCollection<TSource> source)
         {
+            var collection = source as ICollection<TSource>;
+            if (collection != null) return ToArray(collection);
+
             var buffer = new TSource[source.Count];
             var i = 0;
             foreach (var item in source)
@@ -139,8 +143,30 @@ namespace CountableSharp
             return buffer;
         }
 
+        public static TSource[] ToArray<TSource>(this IReadOnlyList<TSource> source)
+        {
+            var collection = source as ICollection<TSource>;
+            if (collection != null) return ToArray(collection);
+
+            // The indexer is faster than the enumerator
+            var buffer = new TSource[source.Count];
+            for (var i = 0; i < buffer.Length; i++)
+                buffer[i] = source[i];
+            return buffer;
+        }
+
+        public static TSource[] ToArray<TSource>(this ICollection<TSource> source)
+        {
+            var buffer = new TSource[source.Count];
+            source.CopyTo(buffer, 0);
+            return buffer;
+        }
+
         public static List<TSource> ToList<TSource>(this IReadOnlyCollection<TSource> source)
         {
+            var collection = source as ICollection<TSource>;
+            if (collection != null) return new List<TSource>(collection);
+
             var list = new List<TSource>(source.Count);
             foreach (var item in source)
                 list.Add(item);
