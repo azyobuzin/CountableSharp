@@ -14,3 +14,4 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyCulture("")]
 
 [assembly: InternalsVisibleTo("CountableSharp.Interactive")]
+[assembly: InternalsVisibleTo("CountableSharp.Tests")]

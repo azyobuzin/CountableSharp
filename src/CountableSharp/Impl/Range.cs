@@ -13,7 +13,8 @@ namespace CountableSharp.Impl
         public Range(int start, int count)
         {
             // Check overflow
-            if (count < 0 || start + count - 1 < start)
+            var end = (long)start + count - 1;
+            if (count < 0 || end > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(count));
 
             _start = start;

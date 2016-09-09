@@ -11,6 +11,9 @@ namespace CountableSharp.Impl
 
         public Repeat(T element, int count)
         {
+            if (count < 0)
+                throw new ArgumentOutOfRangeException(nameof(count));
+
             _element = element;
             _count = count;
         }
