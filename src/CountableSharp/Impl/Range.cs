@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CountableSharp.Impl
 {
-    internal class Range : IReadOnlyList<int>, ICollection<int>
+    internal sealed class Range : IReadOnlyList<int>, IList<int>
     {
         private readonly int _start;
         private readonly int _count;
@@ -28,6 +28,10 @@ namespace CountableSharp.Impl
                     throw new ArgumentOutOfRangeException(nameof(index));
 
                 return _start + index;
+            }
+            set
+            {
+                throw new NotSupportedException();
             }
         }
 
@@ -72,6 +76,23 @@ namespace CountableSharp.Impl
         }
 
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+
+        public int IndexOf(int item)
+        {
+            return this.Contains(item)
+                ? item - _start
+                : -1;
+        }
+
+        public void Insert(int index, int item)
+        {
+            throw new NotSupportedException();
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new NotSupportedException();
+        }
 
         private class Enumerator : IEnumerator<int>
         {

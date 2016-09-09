@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CountableSharp.Impl
 {
-    internal class Repeat<T> : IReadOnlyList<T>, ICollection<T>
+    internal sealed class Repeat<T> : IReadOnlyList<T>, IList<T>
     {
         private readonly T _element;
         private readonly int _count;
@@ -23,6 +23,10 @@ namespace CountableSharp.Impl
                     throw new ArgumentOutOfRangeException(nameof(index));
 
                 return _element;
+            }
+            set
+            {
+                throw new NotSupportedException();
             }
         }
 
@@ -65,6 +69,21 @@ namespace CountableSharp.Impl
         }
 
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+
+        public int IndexOf(T item)
+        {
+            return this.Contains(item) ? 0 : -1;
+        }
+
+        public void Insert(int index, T item)
+        {
+            throw new NotSupportedException();
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new NotSupportedException();
+        }
 
         private class Enumerator : IEnumerator<T>
         {
