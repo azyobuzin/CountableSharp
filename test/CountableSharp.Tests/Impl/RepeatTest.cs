@@ -7,7 +7,7 @@ namespace CountableSharp.Tests.Impl
     public class RepeatTest
     {
         [Fact]
-        public void IndexerAndEnumeratorTest()
+        public void IndexerAndEnumerator()
         {
             const int value = 42;
 

@@ -95,7 +95,7 @@ namespace CountableSharp.Impl
             throw new NotSupportedException();
         }
 
-        private class Enumerator : IEnumerator<int>
+        private sealed class Enumerator : IEnumerator<int>
         {
             private readonly int _start;
             private readonly int _last;

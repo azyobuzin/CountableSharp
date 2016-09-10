@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using CountableSharp.Impl;
 using Xunit;
 
@@ -14,32 +15,38 @@ namespace CountableSharp.Tests.Impl
             Assert.Throws(typeof(ArgumentOutOfRangeException), () => new Range(int.MaxValue, 2));
         }
 
-        [Fact]
-        public void Contains()
+        [Theory]
+        [InlineData(int.MaxValue - 1, 2)]
+        [InlineData(int.MinValue, 2)]
+        public void Contains(int start, int count)
         {
-            var range = new Range(int.MaxValue - 1, 2);
-            Assert.False(range.Contains(int.MaxValue - 2));
-            Assert.True(range.Contains(int.MaxValue - 1));
-            Assert.True(range.Contains(int.MaxValue));
-            Assert.False(range.Contains(unchecked(int.MaxValue + 1)));
+            var range = new Range(start, count);
+
+            Assert.False(range.Contains(start - 1));
+
+            for (var i = 0; i < count; i++)
+                Assert.True(range.Contains(start + i));
+
+            Assert.False(range.Contains(start + count));
         }
 
         [Fact]
-        public void IndexerAndEnumeratorTest()
+        public void Empty()
         {
             Utils.IndexerAndEnumeratorTestCore(
                 new Range(0, 0),
                 Array.Empty<int>()
             );
+        }
 
+        [Theory]
+        [InlineData(int.MinValue, 3)]
+        [InlineData(int.MaxValue - 2, 3)]
+        public void IndexerAndEnumerator(int start, int count)
+        {
             Utils.IndexerAndEnumeratorTestCore(
-                new Range(int.MinValue, 3),
-                new[] { int.MinValue, int.MinValue + 1, int.MinValue + 2 }
-            );
-
-            Utils.IndexerAndEnumeratorTestCore(
-                new Range(int.MaxValue - 2, 3),
-                new[] { int.MaxValue - 2, int.MaxValue - 1, int.MaxValue }
+                new Range(start, count),
+                Enumerable.Range(start, count).ToArray()
             );
         }
     }
